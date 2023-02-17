@@ -1,8 +1,9 @@
-FROM golang:1.18-alpine
+FROM golang:1.18-alpine AS build
 
 WORKDIR /app
-COPY /src ./
 
+
+COPY /src ./
 RUN go mod download
 
 RUN go build -o /main

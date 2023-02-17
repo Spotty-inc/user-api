@@ -31,8 +31,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "wrong data. error: %s", err)
 	}
 	json.Unmarshal(reqBody, &Newuser)
-	if err := Session.Query("INSERT INTO users(id, name, password, high_score) VALUES(?, ?, ?, ?)",
-		Newuser.ID, Newuser.Name, Newuser.Password, Newuser.High_score).Exec(); err != nil {
+	if err := Session.Query("INSERT INTO users(id, name, high_score) VALUES(?, ?, ?)",
+		Newuser.ID, Newuser.Name, Newuser.High_score).Exec(); err != nil {
 		log.Println("Error while inserting")
 		log.Println(err)
 	}
@@ -52,7 +52,6 @@ func GetSingleUser(w http.ResponseWriter, r *http.Request){
 		users = append(users, User{
 			ID: m["id"].(int),
 			Name: m["name"].(string),
-			Password: m["password"].(string),
 			High_score: m["high_score"].(int),
 		})
 		m = map[string]interface{}{}
@@ -72,7 +71,6 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request){
 		users = append(users, User{
 			ID: m["id"].(int),
 			Name: m["name"].(string),
-			Password: m["password"].(string),
 			High_score: m["high_score"].(int),
 		})
 		m = map[string]interface{}{}
