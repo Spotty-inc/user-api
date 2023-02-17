@@ -20,7 +20,7 @@ DB_KEYSPACE = Keyspace name in the target database that stores user information
 | DB_KEYSPACE   | Keyspace name in the target database that stores user information     |
 
 
-e.g sudo docker run -e DB_HOST='127.0.0.1' -e DB_KEYSPACE='userapi' user-api:latest
+e.g sudo docker run -e DB_HOST='127.0.0.1' -e DB_KEYSPACE='userapi' -d user-api:latest
 
 
 ## Cassandra
