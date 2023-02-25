@@ -1,13 +1,20 @@
-FROM golang:1.18-alpine AS build
+# Build
+FROM golang:1.18-alpine AS builder
 
 WORKDIR /app
 
+COPY go.mod .
+COPY go.sum .
 
-COPY /src ./
 RUN go mod download
 
-RUN go build -o /main
+COPY /src/*.go ./
 
-EXPOSE 10001
+RUN CGO_ENABLED=0 GOOS=linux go build -o /main
 
-CMD [ "/main" ]
+# Run
+FROM alpine
+WORKDIR /opt
+COPY --from=builder /main .
+
+CMD [ "./main" ]
